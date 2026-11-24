@@ -39,7 +39,7 @@ export function EmailRow({
         selected ? 'bg-[#F3FBF6]' : 'bg-white hover:bg-[#FAFAFA]'
       }`}
     >
-      {/* Checkbox */}
+
       <div onClick={stop} className="flex items-center">
         <input
           type="checkbox"
@@ -50,23 +50,19 @@ export function EmailRow({
         />
       </div>
 
-      {/* Recipient */}
       <div className="w-48 shrink-0 truncate font-medium text-gray-800">
         To: {email.recipient}
       </div>
 
-      {/* Status pill badge */}
       <div className="w-44 shrink-0">
         <StatusBadge status={email.status} scheduledAt={email.scheduledAt} />
       </div>
 
-      {/* Subject + snippet */}
       <div className="min-w-0 flex-1 truncate">
         <span className="font-semibold text-gray-900">{email.subject}</span>
         {snippet && <span className="text-gray-400"> – {snippet}</span>}
       </div>
 
-      {/* Right actions */}
       <div onClick={stop} className="flex shrink-0 items-center gap-2">
         {onCancelOrDelete && (
           <button

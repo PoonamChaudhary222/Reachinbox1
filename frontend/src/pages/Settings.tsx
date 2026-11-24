@@ -175,7 +175,7 @@ export default function Settings() {
       </div>
 
       <div className="mx-auto w-full max-w-3xl space-y-6 px-6 py-6">
-        {/* ACCOUNT SECTION */}
+
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <h2 className="mb-4 text-xs font-semibold tracking-wider text-gray-400 uppercase">
             Account
@@ -222,7 +222,6 @@ export default function Settings() {
           </div>
         </section>
 
-        {/* SENDER ACCOUNTS SECTION */}
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xs font-semibold tracking-wider text-gray-400 uppercase">
@@ -345,7 +344,6 @@ export default function Settings() {
             </div>
           )}
 
-          {/* Add Sender Form */}
           <form onSubmit={handleAddSender} className="space-y-3 border-t border-gray-100 pt-4">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <input
@@ -420,7 +418,6 @@ export default function Settings() {
           </form>
         </section>
 
-        {/* SLACK INTEGRATION SECTION */}
         <section className="rounded-xl border border-gray-200 bg-white p-5">
           <h2 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
             Slack Rate-Limit Notifications

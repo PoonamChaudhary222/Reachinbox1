@@ -175,7 +175,6 @@ describe('BullMQ Worker: Idempotency, Delay Enforcement, Rate Limiting & Slack A
       })
     );
 
-    // Second job hitting same hourly limit window does NOT send a duplicate Slack alert
     const job2 = createMockJob({ id: 'email-2' });
     await expect(processEmailJob(job2, 'token-2')).rejects.toThrow(DelayedError);
     expect(sendSlackAlertMock).toHaveBeenCalledTimes(1);

@@ -146,7 +146,6 @@ export function ComposeForm() {
   const handleScheduleSubmit = async () => {
     setValidationError(null);
 
-    // Include typed input if user forgot to press Enter
     let finalRecipients = [...recipients];
     if (recipientInput.trim()) {
       const candidate = recipientInput.trim().toLowerCase();
@@ -212,7 +211,7 @@ export function ComposeForm() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-white">
-      {/* Top Header matching Compose Figma frames */}
+
       <header className="flex h-14 items-center justify-between border-b border-gray-100 px-6">
         <div className="flex items-center gap-3">
           <button
@@ -265,7 +264,6 @@ export function ComposeForm() {
         </div>
       </header>
 
-      {/* Send Later Popover */}
       <SchedulePopover
         open={scheduleOpen}
         startDate={startDate}
@@ -283,7 +281,6 @@ export function ComposeForm() {
         onDone={() => setScheduleOpen(false)}
       />
 
-      {/* Compose Form Body */}
       <div className="mx-auto w-full max-w-4xl flex-1 px-8 py-5">
         {validationError && (
           <div
@@ -294,7 +291,6 @@ export function ComposeForm() {
           </div>
         )}
 
-        {/* FROM row */}
         <div className="flex items-center border-b border-gray-100 py-2.5">
           <label htmlFor="compose-from" className="w-20 shrink-0 text-xs text-gray-500">
             From
@@ -314,7 +310,6 @@ export function ComposeForm() {
           </select>
         </div>
 
-        {/* TO row with chips + Upload List */}
         <div className="border-b border-gray-100 py-2.5">
           <div className="flex items-start gap-2">
             <label htmlFor="compose-to" className="w-20 shrink-0 pt-1 text-xs text-gray-500">
@@ -358,7 +353,6 @@ export function ComposeForm() {
             </div>
           </div>
 
-          {/* Detected CSV / Recipient Count Summary */}
           {(recipients.length > 0 || csvSummary) && (
             <div className="mt-1.5 pl-20 flex flex-wrap items-center gap-3 text-[11px] text-gray-500">
               <span className="font-medium text-[#00A838]">
@@ -383,7 +377,6 @@ export function ComposeForm() {
           )}
         </div>
 
-        {/* SUBJECT row */}
         <div className="flex items-center border-b border-gray-100 py-2.5">
           <label htmlFor="compose-subject" className="w-20 shrink-0 text-xs text-gray-500">
             Subject
@@ -398,7 +391,6 @@ export function ComposeForm() {
           />
         </div>
 
-        {/* Inline Delay & Hourly Limit row matching Figma */}
         <div className="flex flex-wrap items-center gap-6 border-b border-gray-100 py-2.5 text-xs text-gray-600">
           <div className="flex items-center gap-2">
             <label htmlFor="compose-delay">Delay between 2 emails</label>
@@ -437,7 +429,6 @@ export function ComposeForm() {
           </button>
         </div>
 
-        {/* Rich Text Editor */}
         <div className="mt-4">
           <RichTextEditor
             value={body}
@@ -446,7 +437,6 @@ export function ComposeForm() {
           />
         </div>
 
-        {/* Bottom Attachment Thumbnails matching Compose Figma frames 2 & 3 */}
         {attachments.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-3">
             {attachments.map((att, idx) => {

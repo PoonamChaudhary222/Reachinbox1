@@ -90,7 +90,7 @@ export function EmailList({
 
   return (
     <div className="flex flex-1 flex-col bg-white">
-      {/* Toolbar with Select-All + Pagination info */}
+
       <div className="flex items-center justify-between border-b border-gray-100 px-5 py-2 text-xs text-gray-500">
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-2 cursor-pointer">
@@ -149,7 +149,6 @@ export function EmailList({
         </div>
       </div>
 
-      {/* Compact email rows */}
       <div className="flex-1 divide-y divide-gray-50">
         {emails.map((email) => (
           <EmailRow

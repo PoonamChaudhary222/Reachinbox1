@@ -36,7 +36,7 @@ export function EmailDetailView({
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      {/* Top Subject Header matching rightmost Figma frame */}
+
       <div className="flex h-14 items-center justify-between border-b border-gray-100 px-6">
         <div className="flex min-w-0 items-center gap-3">
           <button
@@ -84,9 +84,8 @@ export function EmailDetailView({
         </div>
       </div>
 
-      {/* Email Body Container */}
       <div className="mx-auto w-full max-w-4xl flex-1 px-8 py-6">
-        {/* Sender & Recipient Row */}
+
         <div className="mb-6 flex items-start justify-between gap-4">
           <div className="flex items-start gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#00A838] text-sm font-semibold text-white">
@@ -121,7 +120,6 @@ export function EmailDetailView({
           </div>
         </div>
 
-        {/* Error banner if FAILED */}
         {email.status === 'FAILED' && email.errorMessage && (
           <div className="mb-5 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs text-red-700">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
@@ -131,7 +129,6 @@ export function EmailDetailView({
           </div>
         )}
 
-        {/* Ethereal Preview URL in dev */}
         {email.etherealPreviewUrl && (
           <div className="mb-5 flex items-center justify-between rounded-lg border border-[#BFE8CD] bg-[#E8F7EE] px-3.5 py-2 text-xs text-gray-800">
             <span>Ethereal SMTP message captured for inspection.</span>
@@ -146,13 +143,11 @@ export function EmailDetailView({
           </div>
         )}
 
-        {/* Email HTML Body */}
         <div
           className="prose prose-sm max-w-none text-[13.5px] leading-relaxed text-gray-800"
           dangerouslySetInnerHTML={{ __html: email.body }}
         />
 
-        {/* Attachments matching rightmost Figma frame */}
         {attachments.length > 0 && (
           <div className="mt-8 border-t border-gray-100 pt-5">
             <div className="mb-3 text-xs font-medium text-gray-500">

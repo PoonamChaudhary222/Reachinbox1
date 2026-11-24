@@ -45,7 +45,7 @@ export function parseCsvOrTextEmails(content: string): {
   const invalidList: string[] = [];
 
   for (const token of tokens) {
-    // Skip common CSV header labels
+
     if (token === 'email' || token === 'emails' || token === 'recipient' || token === 'address') {
       continue;
     }
@@ -133,7 +133,6 @@ export async function scheduleEmails(userId: string, input: ScheduleEmailsInput)
 
   const allKeys = recordsToCreate.map((r) => r.idempotencyKey);
 
-  // Check if idempotencyKeys already exist (e.g., duplicate client retry)
   const existing = await prisma.email.findMany({
     where: {
       idempotencyKey: { in: allKeys },
@@ -152,7 +151,6 @@ export async function scheduleEmails(userId: string, input: ScheduleEmailsInput)
   const existingKeys = new Set(existing.map((e) => e.idempotencyKey));
   const freshRecords = recordsToCreate.filter((r) => !existingKeys.has(r.idempotencyKey));
 
-  // Batch insert in chunks so 1000+ email campaigns commit rapidly in a single transaction
   const insertChunkSize = 500;
   await prisma.$transaction(async (tx) => {
     for (let i = 0; i < freshRecords.length; i += insertChunkSize) {
@@ -171,7 +169,6 @@ export async function scheduleEmails(userId: string, input: ScheduleEmailsInput)
     orderBy: { scheduledAt: 'asc' },
   });
 
-  // Bulk enqueue persistent BullMQ delayed jobs using Redis pipelining
   await enqueueEmailJobsBulk(
     createdEmails.map((email) => ({
       data: {
@@ -184,7 +181,6 @@ export async function scheduleEmails(userId: string, input: ScheduleEmailsInput)
     }))
   );
 
-  // Index inline for small batches; offload large 25+ batches to ES worker queue
   if (createdEmails.length <= 25) {
     await Promise.all(
       createdEmails.map(async (email) => {
@@ -425,7 +421,7 @@ export async function searchUserEmails(
       engine: 'elasticsearch' as const,
     };
   } catch {
-    // Graceful fallback to PostgreSQL if Elasticsearch is offline
+
     const where: Prisma.EmailWhereInput = { userId };
     if (params.status) {
       where.status = params.status;

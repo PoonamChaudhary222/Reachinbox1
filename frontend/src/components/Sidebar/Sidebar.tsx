@@ -34,14 +34,13 @@ export function Sidebar({ stats }: SidebarProps) {
 
   return (
     <aside className="flex w-[228px] shrink-0 flex-col border-r border-gray-200 bg-white px-3.5 py-4 select-none">
-      {/* Brand mark matching Figma top-left */}
+
       <div className="mb-4 flex items-center gap-2 px-1">
         <div className="flex h-7 items-center rounded bg-gray-900 px-2 text-xs font-extrabold tracking-tight text-white">
           REACHINBOX
         </div>
       </div>
 
-      {/* User Profile Card / Dropdown */}
       <div className="relative mb-3">
         <button
           type="button"
@@ -97,7 +96,6 @@ export function Sidebar({ stats }: SidebarProps) {
         )}
       </div>
 
-      {/* Compose Button matching Figma green outline pill */}
       <button
         type="button"
         onClick={() => navigate('/compose')}
@@ -106,7 +104,6 @@ export function Sidebar({ stats }: SidebarProps) {
         Compose
       </button>
 
-      {/* CORE Navigation */}
       <div className="mb-1.5 px-2 text-[10px] font-semibold tracking-wider text-gray-400 uppercase">
         CORE
       </div>

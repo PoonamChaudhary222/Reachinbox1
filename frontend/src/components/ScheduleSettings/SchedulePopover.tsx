@@ -157,7 +157,6 @@ export function SchedulePopover({
         </div>
       </div>
 
-      {/* Pick date & time clickable trigger */}
       <div className="mb-2">
         <label className="mb-1 block text-[11px] font-medium text-gray-500">
           Pick date &amp; time
@@ -177,10 +176,9 @@ export function SchedulePopover({
         </button>
       </div>
 
-      {/* Interactive Calendar & Time Picker (works in all browsers & embedded webviews) */}
       {pickerExpanded && (
         <div className="mb-3 rounded-lg border border-gray-100 bg-[#FAFAFA] p-2.5">
-          {/* Month Header */}
+
           <div className="mb-2 flex items-center justify-between">
             <button
               type="button"
@@ -201,14 +199,12 @@ export function SchedulePopover({
             </button>
           </div>
 
-          {/* Weekday Headers */}
           <div className="mb-1 grid grid-cols-7 text-center text-[10px] font-medium text-gray-400">
             {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((d) => (
               <div key={d}>{d}</div>
             ))}
           </div>
 
-          {/* Calendar Days */}
           <div className="grid grid-cols-7 gap-0.5 text-center text-[11px]">
             {calendarCells.map((day, idx) => {
               if (!day) return <div key={`empty-${idx}`} />;
@@ -235,7 +231,6 @@ export function SchedulePopover({
             })}
           </div>
 
-          {/* Time Dropdown Selectors */}
           <div className="mt-2.5 flex items-center justify-between gap-1.5 border-t border-gray-200 pt-2">
             <span className="flex items-center gap-1 text-[11px] text-gray-500">
               <Clock className="h-3 w-3 text-gray-400" />
@@ -281,7 +276,6 @@ export function SchedulePopover({
         </div>
       )}
 
-      {/* Quick Presets matching bottom-left Figma frame */}
       <div className="mb-3 divide-y divide-gray-100 border-y border-gray-100 text-xs">
         <button
           type="button"
@@ -314,7 +308,6 @@ export function SchedulePopover({
         </button>
       </div>
 
-      {/* Compact Sender, Delay, Hourly Limit */}
       <div className="mb-4 space-y-2 text-xs">
         <div>
           <label className="mb-1 block text-[11px] text-gray-500">Sender Account</label>
@@ -357,7 +350,6 @@ export function SchedulePopover({
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex items-center justify-end gap-2">
         <button
           type="button"

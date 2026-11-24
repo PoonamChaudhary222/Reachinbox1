@@ -48,7 +48,6 @@ export async function processEmailJob(job: Job<EmailJobData>, token?: string): P
     email.hourlyLimit || env.MAX_EMAILS_PER_HOUR_PER_SENDER
   );
 
-  // 1. Enforce minimum per-sender delay across all worker instances
   const slot = await acquirePerSenderSendSlot(email.senderId, effectiveDelayMs);
   if (!slot.acquired) {
     const jitterMs = Math.floor(Math.random() * 120) + 25;
@@ -57,7 +56,6 @@ export async function processEmailJob(job: Job<EmailJobData>, token?: string): P
     throw new DelayedError('Per-sender minimum delay active; deferred to next send slot.');
   }
 
-  // 2. Enforce distributed per-sender hourly rate limit
   const quota = await consumeSenderHourlyQuota(email.senderId, effectiveHourlyLimit);
   if (!quota.allowed) {
     const nextSendAt = await reserveNextWindowTimestamp(
@@ -94,7 +92,6 @@ export async function processEmailJob(job: Job<EmailJobData>, token?: string): P
     );
   }
 
-  // 3. Atomic DB state transition: SCHEDULED -> PROCESSING
   const claim = await prisma.email.updateMany({
     where: {
       id: email.id,
@@ -110,7 +107,6 @@ export async function processEmailJob(job: Job<EmailJobData>, token?: string): P
     return;
   }
 
-  // 4. Send email via Ethereal / configured SMTP
   try {
     const attachments = Array.isArray(email.attachments)
       ? (email.attachments as unknown as EmailAttachmentPayload[])
@@ -171,7 +167,7 @@ export async function processEmailJob(job: Job<EmailJobData>, token?: string): P
         await enqueueEsIndexRetry(email.id);
       }
     } else {
-      // Revert to SCHEDULED so BullMQ backoff retry can re-claim atomically
+
       await prisma.email.update({
         where: { id: email.id },
         data: {

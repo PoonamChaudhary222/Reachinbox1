@@ -102,7 +102,7 @@ export function RichTextEditor({
 
   return (
     <div className="flex flex-col rounded-lg border border-gray-200 bg-[#FAFAFA]">
-      {/* Formatting toolbar matching Figma */}
+
       <div className="flex flex-wrap items-center gap-0.5 border-b border-gray-200 bg-white px-2.5 py-1.5 rounded-t-lg">
         <ToolbarBtn
           onClick={() => editor.chain().focus().undo().run()}
@@ -216,7 +216,6 @@ export function RichTextEditor({
         )}
       </div>
 
-      {/* Editor body */}
       <div className="rounded-b-lg bg-white px-4 py-3 text-[13.5px] text-gray-800">
         <EditorContent editor={editor} />
       </div>

@@ -75,7 +75,6 @@ async function startWorker() {
     console.warn('[ES Worker] Error:', err.message);
   });
 
-  // Reconcile any unindexed emails at startup
   reconcileUnindexedEmails(50).catch(() => {});
 
   const shutdown = async (signal: string) => {

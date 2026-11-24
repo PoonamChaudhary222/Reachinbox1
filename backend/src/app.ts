@@ -46,7 +46,6 @@ export function createApp() {
   app.use('/api/slack', slackRoutes);
   app.use('/api/search', searchRoutes);
 
-  // Bull Board queue dashboard protected by authentication and admin authorization
   if (env.NODE_ENV !== 'test') {
     app.use('/admin/queues', requireAuth, requireAdmin, createBullBoardMiddleware());
   }

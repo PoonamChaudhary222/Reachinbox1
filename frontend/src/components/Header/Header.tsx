@@ -41,7 +41,7 @@ export function Header({
 
   return (
     <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-gray-100 bg-white px-5">
-      {/* Search bar matching Figma */}
+
       <div className="flex flex-1 items-center gap-2.5">
         <div className="flex w-full max-w-lg items-center gap-2 rounded-full bg-[#F4F5F7] px-3.5 py-1.5 border border-transparent focus-within:border-gray-300 focus-within:bg-white transition-colors">
           <Search className="h-3.5 w-3.5 shrink-0 text-gray-400" />
@@ -91,7 +91,6 @@ export function Header({
         )}
       </div>
 
-      {/* Right user info + icons + logout */}
       <div className="relative flex items-center gap-2">
         <button
           type="button"

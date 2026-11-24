@@ -118,7 +118,6 @@ export default function Dashboard() {
         onToggleFilter={() => setShowFilters((p) => !p)}
       />
 
-      {/* Category Tabs */}
       <div className="flex items-center gap-6 border-b border-gray-100 px-5 text-xs">
         {(
           [
@@ -146,7 +145,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Collapsible Filter Controls */}
       {showFilters && (
         <div className="flex flex-wrap items-center gap-3 border-b border-gray-100 bg-[#FAFAFA] px-5 py-2.5 text-xs">
           <select

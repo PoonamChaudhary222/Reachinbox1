@@ -8,7 +8,6 @@ import { closeQueues } from './queues/emailQueue';
 async function bootstrap() {
   const app = createApp();
 
-  // Warm up Redis and Elasticsearch index (non-fatal if ES isn't up yet)
   getRedisClient();
   ensureEmailIndex().catch(() => {});
 

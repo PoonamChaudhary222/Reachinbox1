@@ -99,7 +99,6 @@ export default function Login() {
           </div>
         )}
 
-        {/* Green-tinted Google Login button matching first Figma frame */}
         <button
           type="button"
           onClick={handleGoogleLogin}
@@ -126,14 +125,12 @@ export default function Login() {
           Login with Google
         </button>
 
-        {/* Divider */}
         <div className="my-4 flex items-center gap-2">
           <div className="h-px flex-1 bg-gray-100" />
           <span className="text-[11px] text-gray-400">or sign up through email</span>
           <div className="h-px flex-1 bg-gray-100" />
         </div>
 
-        {/* Email / Password Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           {mode === 'register' && (
             <div>
