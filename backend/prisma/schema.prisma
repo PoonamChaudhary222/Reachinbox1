@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum EmailStatus {
+  SCHEDULED
+  PROCESSING
+  SENT
+  FAILED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  googleId     String?  @unique
+  passwordHash String?
+  avatar       String?  @db.Text
+  role         UserRole @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  senders          Sender[]
+  emails           Email[]
+  slackIntegration SlackIntegration?
+
+  @@index([email])
+}
+
+model Sender {
+  id                String   @id @default(cuid())
+  userId            String
+  email             String
+  displayName       String
+  smtpHost          String?
+  smtpPort          Int?
+  smtpUser          String?
+  encryptedSmtpPass String?  @db.Text
+  isDefault         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emails Email[]
+
+  @@unique([userId, email])
+  @@index([userId])
+}
+
+model Email {
+  id                  String      @id @default(cuid())
+  userId              String
+  senderId            String
+  recipient           String
+  subject             String      @db.VarChar(500)
+  body                String      @db.LongText
+  textBody            String?     @db.LongText
+  attachments         Json?
+  scheduledAt         DateTime
+  sentAt              DateTime?
+  status              EmailStatus @default(SCHEDULED)
+  delayBetweenEmailsMs Int        @default(2000)
+  hourlyLimit         Int?
+  starred             Boolean     @default(false)
+  errorMessage        String?     @db.Text
+  etherealPreviewUrl  String?     @db.Text
+  idempotencyKey      String      @unique
+  bullJobId           String?
+  retryCount          Int         @default(0)
+  esIndexed           Boolean     @default(false)
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sender Sender @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, scheduledAt])
+  @@index([senderId, status])
+  @@index([esIndexed])
+}
+
+model SlackIntegration {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  encryptedAccessToken String   @db.Text
+  teamId               String
+  teamName             String?
+  channelId            String?
+  channelName          String?
+  connectedAt          DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
